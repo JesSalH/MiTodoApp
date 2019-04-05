@@ -49,7 +49,7 @@ export class TodoItem extends React.Component {
 //2.- el map que pasa a estado el data de la app
 const mapStateToProps = state => {
 
-    console.log("This is the state");
+    console.log("This is the state, it does not appear on the screen!!!!");
     console.log(state);
     return state;
     //return { song: state.selectedSong };
