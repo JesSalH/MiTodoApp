@@ -1,6 +1,9 @@
 import React from "react"
 import './App.css';
 
+//1.- connect de redux..
+import { connect } from 'react-redux';
+
 // importamos action de borrar toDo (las action no se pueden usar directamente)
 //import {deleteTodo} from '../../Actions/DeleteTodo'
 
@@ -61,7 +64,7 @@ clickEdit(id){
   render() 
   {
       // Transformamos el array de datos en un array de TodoItems (checkboxes) relleno
-      const todoItems = this.state.todos.map(item => <TodoItem 
+      const todoItems = this.props.todos.map(item => <TodoItem 
                                                         key={item.id} 
                                                         item={item}
                                                         alCambiar={this.handleChange}
@@ -77,4 +80,16 @@ clickEdit(id){
   }
 }
 
-export default App
+
+
+//2.- el map que pasa a estado el data de la app
+const mapStateToProps = state => {  
+  console.log(state);
+  return {todos: state.todos};
+  //return { song: state.selectedSong };
+};
+
+
+
+//   3.- connect componente y datos del store
+export default connect(mapStateToProps)(App);

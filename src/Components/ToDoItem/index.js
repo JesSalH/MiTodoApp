@@ -1,7 +1,5 @@
 import React from "react"
 
-//1.- connect de redux..
-import { connect } from 'react-redux';
 
 
 // importamos actions
@@ -9,7 +7,13 @@ import { connect } from 'react-redux';
 // import { ModifyTodo } from '../../actions/ModifyTodo.js';
 // import { DeleteTodo } from '../../actions/DeleteTodo.js';
 
-export class TodoItem extends React.Component {
+export class TodoItem extends React.Component  {
+
+    componentDidMount(){
+
+        // console.log("montado");
+        // console.log(this.props);
+    }
 
     render()
     {
@@ -47,16 +51,4 @@ export class TodoItem extends React.Component {
 }
 
 
-//2.- el map que pasa a estado el data de la app
-const mapStateToProps = state => {
-
-    console.log("This is the state, it does not appear on the screen!!!!");
-    console.log(state);
-    return state;
-    //return { song: state.selectedSong };
-  };
-
-
-
-//   3.- connect componente y datos del store
-export default connect(mapStateToProps)(TodoItem);
+export default TodoItem;
