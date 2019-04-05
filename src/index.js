@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Components/App/App';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
 // Estos 2 imports hacen falta para ... 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import {store} from './utils/store'
 
-// importamos reducers
-import reducers from './Reducers/Index';
 
 ReactDOM.render(
 
     // el provider tiene un store con los reducers que hemos creado
     // ahora el componente App tiene acceso al store (con los datos?)
-    <Provider store={createStore(reducers)}>
+    <Provider store={store}>
       <App />
     </Provider>
     ,

@@ -1,36 +1,9 @@
 import { combineReducers } from 'redux';
-
-//reducer devuelve todos el array de todos
-const AllTodosReducer = (todosArray = []) => {
-  return todosArray;
-};
+import todos from './todos'
+import {connectRouter} from 'connected-react-router';
 
 
-// reducer que borra un toDo
-const handleTodosReducer = (oldTodosArray = [], action) => {
-
-  if (action.type === 'ADD_TODO') {
-    //   devolvemos un nuevo array con los elementos del antiguo array (separados) y el nuevo toDo
-    // Ojo, no usar oldTodosArray.push, se debe devolver un array nuevo 
-     return [...oldTodosArray,action.payload]
-
-  }else if( action.type === 'DELETE_TODO'){
-    // devolvemos la lista menos el elemento que nos ha pasado la action.
-    return oldTodosArray.filter( todo => todo.id !== action.payload.id)
-    
-  }else if(action.type === 'MODIFY_TODO'){
-    //1 quitamos el todo que vamos a meter modificado
-    let listWithoutModifiedTodo = oldTodosArray.filter( todo => todo.id !== action.payload.id)
-    // 2 anadimos el todo que nos viene de la action
-    return [...listWithoutModifiedTodo,action.payload]
-  }
-
-  // si la action no es para este reducer, devuelve el array de todos original
-  return oldTodosArray;
-};
-
-// Aqui le damos un nombre a cada reducer para luego llamarlos
-export default combineReducers({
-  handleTodos: handleTodosReducer,
-  allTodos: AllTodosReducer
+export default (history) => combineReducers({
+  todos,
+  router: connectRouter(history),
 });
