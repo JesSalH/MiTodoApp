@@ -5,10 +5,10 @@ import './App.css';
 //import {deleteTodo} from '../../Actions/DeleteTodo'
 
 // asi importamos un export class
-import {TodoItem} from "../ToDoItem/toDoItem"
+import {TodoItem} from "../ToDoItem"
 
 //array de datos de prueba
-import todosData from "../../FakeData/todosData"
+import todosData from "../../fakeData"
 
 class App extends React.Component {
 

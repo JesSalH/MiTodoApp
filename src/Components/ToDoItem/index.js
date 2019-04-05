@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 
 // importamos actions
-import { AddTodo } from '../../Actions/AddTodo';
-import { ModifyTodo } from '../../Actions/ModifyTodo.js';
-import { DeleteTodo } from '../../Actions/DeleteTodo.js';
+// import { AddTodo } from '../../actions/AddTodo';
+// import { ModifyTodo } from '../../actions/ModifyTodo.js';
+// import { DeleteTodo } from '../../actions/DeleteTodo.js';
 
 export class TodoItem extends React.Component {
 
@@ -45,6 +45,7 @@ export class TodoItem extends React.Component {
 
     }
 }
+
 
 //2.- el map que pasa a estado el data de la app
 const mapStateToProps = state => {
