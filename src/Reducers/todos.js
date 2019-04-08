@@ -1,8 +1,11 @@
-//reducer devuelve todos el array de todos
+import toDosData from '../fakeData'
+
+
+//(aqui habia) reducer devuelve todos el array de todos
 
   
 // reducer que borra un toDo
-const reducer = (oldTodosArray = [], action) => {
+const reducer = (oldTodosArray = toDosData, action) => {
 
     if (action.type === 'ADD_TODO') {
         //   devolvemos un nuevo array con los elementos del antiguo array (separados) y el nuevo toDo
