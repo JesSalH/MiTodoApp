@@ -3,9 +3,9 @@ import React from "react"
 
 
 // importamos actions
-// import { AddTodo } from '../../actions/AddTodo';
-// import { ModifyTodo } from '../../actions/ModifyTodo.js';
-// import { DeleteTodo } from '../../actions/DeleteTodo.js';
+// import { AddTodo } from '../../actions/addTodo';
+// import { ModifyTodo } from '../../actions/modifyTodo.js';
+// import { DeleteTodo } from '../../actions/deleteTodo.js';
 
 export class TodoItem extends React.Component  {
 
@@ -34,8 +34,8 @@ export class TodoItem extends React.Component  {
                 />  
                 <p style={this.props.item.completed ? completedStyle: null}>La tarea es: {this.props.item.text}</p>
                 <button 
-                    onClick={() => this.props.alBorrar(this.props.item.id)}   
-                    type="button">Deleter
+                    onClick={() => this.props.alBorrar(this.props.item)}   
+                    type="button">Deletee
                 </button>
     
                 <button
@@ -43,12 +43,18 @@ export class TodoItem extends React.Component  {
                     type="button">
                     Edit
                 </button>
+
+                <button
+                     onClick={() => this.props.alDuplicar()}   
+                    type="button">
+                    Duplicate
+                </button>
                    
-        </div>
+            </div>
         )
 
     }
 }
 
 
-export default TodoItem;
+//export default TodoItem;

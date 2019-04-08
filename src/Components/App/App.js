@@ -1,17 +1,20 @@
 import React from "react"
-import './App.css';
+import './app.css';
 
 //1.- connect de redux..
 import { connect } from 'react-redux';
 
-// importamos action de borrar toDo (las action no se pueden usar directamente)
-//import {deleteTodo} from '../../Actions/DeleteTodo'
+// importamos actions
+import {deleteTodo} from '../../actions/deleteTodo'
+import {addTodo} from '../../actions/addTodo'
 
-// asi importamos un export class
-import {TodoItem} from "../ToDoItem"
+// asi importamos un class based component
+import {TodoItem} from "../toDoItem"
+import {NewTodo} from "../newTodo"
 
 //array de datos de prueba
-import todosData from "../../fakeData"
+//no se usan porque los cogemos directamente del store
+//import todosData from "../../fakeData"
 
 
 //-----------------------------------------------------------------------------
@@ -21,24 +24,29 @@ class App extends React.Component {
   constructor() 
   {
       super()
-      // 
+
+      //este componente no tiene state, solo coge datos del store (en props) y los pasa al componente toDo Item 
       this.state = {
           // guardamos el array de datos en todos
           //todos: todosData
           //no funciona
-          todos: this.props.todos
+          //todos: this.props.todos
+          //smodalVisible: false
       }
       // bindeamos con la func que va a modificar el state
       this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(id){
+
     console.log("Llamado handleChange desde la id "+id)
 
+    //esto no funciona porque ya no tenemos state, ahora tenemos que modificar directamente el store con actions
     // modificicamos el state basandonos en el state previo
     this.setState(prevState => {
 
       // mapeamos cada elemento del array
+    
       const updatedTodos = prevState.todos.map(todo => {
 
           // si es el que hemos clicado cambiamos completed
@@ -58,32 +66,62 @@ class App extends React.Component {
 }
 
 
-clickDelete(id){
-  console.log("pulsado delete "+id)
-  //console.log("Esto es props.todos (lanzado desde delete): "+this.props.todos)
+clickDelete(toDo){
+  console.log("pulsado delete "+toDo.id)
+  console.log("Esto es props.todos (lanzado desde delete): "+this.props.todos)
+  this.props.deleteTodo(toDo)
 }
 
 clickEdit(id){
   console.log("pulsado edit de "+id)
   
 }
+
+mensaje(id){
+  console.log("Pulsado Action de "+id)  
+}
+
   
   render() 
   {
-
-      console.log("Esto es props.todos (lanzado desde render): "+this.props.todos)
+      //console.log("Esto es props (lanzado desde render): "+this.props)
       // Transformamos el array de datos en un array de TodoItems (checkboxes) relleno
-      const todoItems = this.props.todos.map(item => <TodoItem 
-                                                        key={item.id} 
-                                                        item={item}
-                                                        alCambiar={this.handleChange}
-                                                        alBorrar={this.clickDelete}  
-                                                        alEditar={this.clickEdit}                                                                                                                                                                     
-                                                      />)
+      // 4.- ya tiene unas props con el toDos del store (enlazado desde el connect)
+      const todoItems = this.props.todos.map(item => <div  key={item.id} >
+
+                                                        <TodoItem 
+                                                          key={item.id} 
+                                                          item={item}
+                                                          alCambiar={(id)=>this.handleChange(id)}
+                                                          alBorrar={(itm)=>this.clickDelete(itm)}  
+                                                          alEditar={(id)=>this.clickEdit(id)}
+                                                          // De aqui llamamos a la action que hemos metido con el connect 
+                                                          alDuplicar={()=>this.props.addTodo(item)}                                                                                                                                                                       
+                                                        />
+
+                                                        <button
+                                                          onClick={()=>this.mensaje(item.id)}   
+                                                          type="button">
+                                                            Prueba simple
+                                                        </button>
+
+                                                        <button
+                                                          onClick={()=>this.props.addTodo(item)}   
+                                                          type="button">
+                                                            AddToDo
+                                                        </button>
+
+                                                      </div>
+                                                      )
+
       
       return (
           <div className="todo-list">
               {todoItems}
+
+              <br/> 
+             <NewTodo/>
+           
           </div>
       )    
   }
@@ -103,5 +141,24 @@ const mapStateToProps = state => {
 
 
 
+//2X.- por si queremos separar las actions en lugar de meterlas directamente en el connect...
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodo: (itm) => {
+      dispatch(addTodo(itm))
+    },
+    deleteTodo: (itm) =>{
+      dispatch(deleteTodo(itm))
+    }
+  };
+};
+
+
+
 //   3.- connect componente y datos del store
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps,
+  //  {addTodo:addTodo,deleteTodo:deleteTodo})(App);
+
+export default connect(mapStateToProps,
+   mapDispatchToProps)(App);
+  
