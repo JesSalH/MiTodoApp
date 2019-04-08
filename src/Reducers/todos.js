@@ -1,7 +1,7 @@
 import toDosData from '../fakeData'
 
 
-//reducer devuelve todos el array de todos
+//(aqui habia) reducer devuelve todos el array de todos
 
   
 // reducer que borra un toDo
