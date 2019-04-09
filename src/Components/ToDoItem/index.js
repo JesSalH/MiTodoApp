@@ -9,15 +9,25 @@ import React from "react"
 
 export class TodoItem extends React.Component  {
 
-    componentDidMount(){
+    constructor() 
+    {
+        super()
 
-        // console.log("montado");
-        // console.log(this.props);
+        this.state = {
+            
+            editModalVisible: false,
+            text:'',
+            completed:false,
+        }
+        // bindeamos con la func que va a modificar el state
+        
+    }
+
+    componentDidMount(){
     }
 
     render()
     {
-
         const completedStyle = {
             fontStyle: "italic",
             color: "#cdcdcd",
@@ -35,20 +45,61 @@ export class TodoItem extends React.Component  {
                 <p style={this.props.item.completed ? completedStyle: null}>La tarea es: {this.props.item.text}</p>
                 <button 
                     onClick={() => this.props.alBorrar(this.props.item)}   
-                    type="button">Deletee
+                    type="button">Delete
                 </button>
-    
-                <button
-                     onClick={() => this.props.alEditar(this.props.item.id)}   
-                    type="button">
-                    Edit
-                </button>
+                   
+                {/* ----------------- parte modal edit ----------- */}
+                
+                    <div className="edit-todo">
+        
+                        {/* <!-- Trigger/Open The Modal --> */}
+                        <button id="myBtn"
+                            onClick = {()=>this.setState({modalVisible: true})}
+                        >Edit Item</button>
 
-                <button
-                     onClick={() => this.props.alDuplicar()}   
-                    type="button">
-                    Duplicate
-                </button>
+                        {/* <!-- The Modal --> */}
+                        {this.state.modalVisible ? <div id="myModal" className="modal">
+
+                        {/* <!-- Modal content --> */}
+                        <div className="modal-content">
+                            <span className="close"
+                            onClick = {()=>this.setState({modalVisible: false})}
+                            >&times;</span>
+
+                            <p>Edit Todo</p>
+
+                            <input 
+                                type="text" 
+                                title="label" 
+                                value={ this.state.text } 
+                                onChange={(event) => { this.setState({ text: event.target.value }); }}>
+                            </input>
+
+                            <input 
+                                type="checkbox" 
+                                title="completed"
+                                checked={this.state.completed}
+                                onChange={event => this.setState({ completed: event.target.checked })}>
+                            </input>
+
+                            <button 
+                                id="myBtnAddTodo"
+                                onClick = {()=> {
+
+                                    this.props.editTodo(this.props.item.id,this.state.text,this.state.completed);                                    
+                                    this.setState({modalVisible: false});
+                                }}
+                                    >Apply Changes
+                            </button>
+
+                        </div>
+
+                    </div>: null }
+
+
+                </div>
+
+                {/* ---------------------------------------------- */}
                    
             </div>
         )

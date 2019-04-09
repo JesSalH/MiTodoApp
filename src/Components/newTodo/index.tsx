@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 //la action que vamos a necesitar
 import {addTodo} from '../../actions/addTodo'
+import {todosActions} from '../../actions'
 
 interface IProps {
     addTodo: (text:string,checked:boolean) => void;
@@ -82,8 +83,7 @@ class NewTodo extends React.Component<IProps,IState>  {
 
              </div>: null }
 
-            
-       
+
      </div>
 
         );
@@ -108,6 +108,10 @@ const mapStateToProps = (state:any) => {
 const mapDispatchToProps = (dispatch:any) => {
     return {
         addTodo: (itm:any) => {
+            dispatch(addTodo(itm))
+        }
+        ,
+        todosActions: (itm:any) => {
             dispatch(addTodo(itm))
         }
     };

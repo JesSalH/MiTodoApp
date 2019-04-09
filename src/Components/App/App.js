@@ -5,7 +5,8 @@ import './app.css';
 import { connect } from 'react-redux';
 
 // importamos actions
-import {deleteTodo} from '../../actions/deleteTodo'
+import {deleteTodo} from '../../actions/deleteTodo';
+import {modifyTodo} from '../../actions/modifyTodo'
 //import {addTodo} from '../../actions/addTodo'
 
 // asi importamos un class based component
@@ -31,7 +32,8 @@ class App extends React.Component {
           //todos: todosData
           //no funciona
           //todos: this.props.todos
-          //smodalVisible: false
+          //modalVisible: false
+          // editModalVisible: false
       }
       // bindeamos con la func que va a modificar el state
       this.handleChange = this.handleChange.bind(this)
@@ -41,12 +43,15 @@ class App extends React.Component {
 
     console.log("Llamado handleChange desde la id "+id)
 
+    //creo que para el tachado habria que crear un action y un reducer nuevos
+    //Action --> devuelve este toDo
+    //reducer --> le cambia el checked a este todo y deja los demas igual
+
     //esto no funciona porque ya no tenemos state, ahora tenemos que modificar directamente el store con actions
     // modificicamos el state basandonos en el state previo
+    /*
     this.setState(prevState => {
 
-      // mapeamos cada elemento del array
-    
       const updatedTodos = prevState.todos.map(todo => {
 
           // si es el que hemos clicado cambiamos completed
@@ -62,7 +67,9 @@ class App extends React.Component {
           // ahora todos (prop del state) sera el nuevo array mapeado
           todos: updatedTodos
       }
-  })
+      
+    }
+    )*/
 }
 
 
@@ -72,19 +79,19 @@ clickDelete(toDo){
   this.props.deleteTodo(toDo)
 }
 
-clickEdit(id){
-  console.log("pulsado edit de "+id)
-  
-}
 
-mensaje(id){
-  console.log("Pulsado Action de "+id)  
-}
+editTodo(id,text,completed){
+  console.log("alcanzado edit to do con valores: ")
+  console.log("id: "+id)
+  console.log("text: "+text)
+  console.log("completed: "+completed)
 
+  this.props.modifyTodo(id, text, completed);
+
+}
   
   render() 
   {
-      //console.log("Esto es props (lanzado desde render): "+this.props)
       // Transformamos el array de datos en un array de TodoItems (checkboxes) relleno
       // 4.- ya tiene unas props con el toDos del store (enlazado desde el connect)
       const todoItems = this.props.todos.map(item => <div  key={item.id} >
@@ -93,24 +100,13 @@ mensaje(id){
                                                           key={item.id} 
                                                           item={item}
                                                           alCambiar={(id)=>this.handleChange(id)}
-                                                          alBorrar={(itm)=>this.clickDelete(itm)}  
-                                                          alEditar={(id)=>this.clickEdit(id)}
-                                                          // De aqui llamamos a la action que hemos metido con el connect 
-                                                          alDuplicar={()=>this.props.addTodo(item)}                                                                                                                                                                       
+                                                          alBorrar={(itm)=>this.clickDelete(itm)}                                                                                                                  
+                                                          editTodo={(id,text,completed)=>this.editTodo(id,text,completed)}                                                                                                                                                                       
                                                         />
-
-                                                        <button
-                                                          onClick={()=>this.mensaje(item.id)}   
-                                                          type="button">
-                                                            Prueba simple
-                                                        </button>
-
-                                                        
 
                                                       </div>
                                                       )
-
-      
+    
       return (
           <div className="todo-list">
                <NewTodo/>
@@ -141,9 +137,12 @@ const mapDispatchToProps = dispatch => {
     
     deleteTodo: (itm) =>{
       dispatch(deleteTodo(itm))
+    },
+    modifyTodo: (itm) =>{
+      dispatch(modifyTodo(itm))
     }
   };
-};
+}
 
 
 
@@ -151,6 +150,5 @@ const mapDispatchToProps = dispatch => {
 // export default connect(mapStateToProps,
   //  {addTodo:addTodo,deleteTodo:deleteTodo})(App);
 
-export default connect(mapStateToProps,
-   mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
   
