@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 // importamos actions
 import {deleteTodo} from '../../actions/deleteTodo'
-import {addTodo} from '../../actions/addTodo'
+//import {addTodo} from '../../actions/addTodo'
 
 // asi importamos un class based component
 import {TodoItem} from "../toDoItem"
-import {NewTodo} from "../newTodo"
+import NewTodo from "../newTodo"
 
 //array de datos de prueba
 //no se usan porque los cogemos directamente del store
@@ -105,11 +105,7 @@ mensaje(id){
                                                             Prueba simple
                                                         </button>
 
-                                                        <button
-                                                          onClick={()=>this.props.addTodo(item)}   
-                                                          type="button">
-                                                            AddToDo
-                                                        </button>
+                                                        
 
                                                       </div>
                                                       )
@@ -117,11 +113,9 @@ mensaje(id){
       
       return (
           <div className="todo-list">
+               <NewTodo/>
               {todoItems}
-
               <br/> 
-             <NewTodo/>
-           
           </div>
       )    
   }
@@ -144,9 +138,7 @@ const mapStateToProps = state => {
 //2X.- por si queremos separar las actions en lugar de meterlas directamente en el connect...
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: (itm) => {
-      dispatch(addTodo(itm))
-    },
+    
     deleteTodo: (itm) =>{
       dispatch(deleteTodo(itm))
     }
