@@ -29,7 +29,7 @@ export class TodoItem extends React.Component  {
                 <input 
                     type="checkbox" 
                     checked={this.props.item.completed}
-                    onChange={() => this.props.alCambiar(this.props.item.id)}       
+                    onChange={() => this.props.alCambiar(this.props.item)}       
                 />  
                 <p style={this.props.item.completed ? completedStyle: null}>La tarea es: {this.props.item.text}</p>
                 <button 

@@ -48,5 +48,15 @@
 };
 
 
-  const allTodoActions = { addTodo, deleteTodo, modifyTodo };
+const strikeThroughTodo = todo => {
+  console.log("Action strikeTrhough called");
+  return {
+    // Devuelve un un type y la payload que es un objeto tipo song
+    type: 'STRIKETHROUGH_TODO',
+    // todo a Borrar
+    payload: todo
+  };
+};
+
+  const allTodoActions = { addTodo, deleteTodo, modifyTodo, strikeThroughTodo };
   export default allTodoActions

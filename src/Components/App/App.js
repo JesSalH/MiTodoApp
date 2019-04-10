@@ -30,36 +30,9 @@ class App extends React.Component {
   }
 
 
-  handleChange(id){
+  handleChange(todo){
 
-
-    //creo que para el tachado habria que crear un action y un reducer nuevos
-    //Action --> devuelve este toDo
-    //reducer --> le cambia el checked a este todo y deja los demas igual
-
-    //esto no funciona porque ya no tenemos state, ahora tenemos que modificar directamente el store con actions
-    // modificicamos el state basandonos en el state previo
-    /*
-    this.setState(prevState => {
-
-      const updatedTodos = prevState.todos.map(todo => {
-
-          // si es el que hemos clicado cambiamos completed
-          if (todo.id === id) {
-              todo.completed = !todo.completed
-          }
-          // devolvemos todos los elementos
-          return todo
-      })
-
-     
-      return {
-          // ahora todos (prop del state) sera el nuevo array mapeado
-          todos: updatedTodos
-      }
-      
-    }
-    )*/
+    this.props.stTodo(todo);
 }
 
 
@@ -93,7 +66,7 @@ addTodo(text, completed){
       <TodoItem
         key={item.id}
         item={item}
-        alCambiar={(id) => this.handleChange(id)}
+        alCambiar={(todo) => this.handleChange(todo)}
         alBorrar={(itm) => this.clickDelete(itm)}
         editTodo={(id, text, completed) => this.editTodo(id, text, completed)}
       />
@@ -140,8 +113,10 @@ const mapDispatchToProps = dispatch => {
     },
     addNewTodo: (text,checked) =>{
       dispatch(todosActions.addTodo(text,checked))
+    },
+    stTodo: (todo) =>{
+      dispatch(todosActions.strikeThroughTodo(todo))
     }
-    // aqui le tengo que meter la otra action
   };
 }
 
