@@ -1,4 +1,6 @@
- const addTodo = (text,checked) => {
+import ITodo from '../interfaces';
+ 
+ const addTodo = (text:string,checked:boolean) => {
     console.log("Action new todo called");
     
     let rdId = Math.round(Math.floor((Math.random() * 50000) + 1));
@@ -20,7 +22,7 @@
   
 
 
-  const deleteTodo = todo => {
+  const deleteTodo = (todo:ITodo) => {
     console.log("Action delete todo called");
     return {
       // Devuelve un un type y la payload que es un objeto tipo song
@@ -31,12 +33,12 @@
   };
   
 
-   const modifyTodo = (idP, textP, completedP) => {
+   const modifyTodo = (id:number, text:string, completed:boolean) => {
     
     let todo = {
-      id: idP,
-      text: textP,
-      completed: completedP
+      id: id,
+      text: text,
+      completed: completed
     }
 
     return {
@@ -48,7 +50,7 @@
 };
 
 
-const strikeThroughTodo = todo => {
+const strikeThroughTodo = (todo:ITodo) => {
   console.log("Action strikeTrhough called");
   return {
     // Devuelve un un type y la payload que es un objeto tipo song

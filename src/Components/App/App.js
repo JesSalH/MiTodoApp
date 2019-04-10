@@ -121,6 +121,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 
+
 // 3.- connect de store, actions y componente
 export default connect(mapStateToProps,mapDispatchToProps)(App);
   

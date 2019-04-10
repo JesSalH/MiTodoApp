@@ -5,7 +5,7 @@ import todos from './todos'
 import {connectRouter} from 'connected-react-router';
 
 
-export default (history) => combineReducers({
+export default (history:any) => combineReducers({
   todos,
   router: connectRouter(history),
 });

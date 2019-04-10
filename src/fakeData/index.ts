@@ -1,3 +1,5 @@
+import ITodo from '../interfaces';
+
 const todosData = [
     {
         id: 1,

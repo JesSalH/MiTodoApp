@@ -1,17 +1,12 @@
 import React from "react"
+import ITodo from '../../interfaces';
 
 export class TodoItem extends React.Component  {
 
-    constructor() 
-    {
-        super()
-
-        this.state = {
-            
-            editModalVisible: false,
-            text:'',
-            completed:false,
-        }
+    public state = {
+        editModalVisible: false,
+        text:'',
+        completed:false,
     }
 
 
@@ -37,7 +32,7 @@ export class TodoItem extends React.Component  {
                     type="button">Delete
                 </button>
                    
-                {/* ----------------- parte modal edit ------------ */}
+                {/* ----------------- modal edit ------------ */}
                 
                     <div className="edit-todo">
         
@@ -88,7 +83,6 @@ export class TodoItem extends React.Component  {
 
 
                 </div>
-
                 {/* ---------------------------------------------- */}
                    
             </div>

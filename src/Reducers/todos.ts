@@ -1,7 +1,8 @@
 import toDosData from '../fakeData'
+import ITodo from '../interfaces';
+import { AnyAction, Reducer } from 'redux';
 
-
-const reducer = (oldTodosArray = toDosData, action) => {
+const reducer = (oldTodosArray = toDosData, action:AnyAction) => {
 
     switch (action.type){
 
@@ -23,7 +24,7 @@ const reducer = (oldTodosArray = toDosData, action) => {
                 if (todo.id === action.payload.id) {
                     todo.completed = !todo.completed
                 }
-                // devolvemos todos los elementos
+                // devolvemos todos los elementos del array
                 return todo
             })
             return updatedTodos
