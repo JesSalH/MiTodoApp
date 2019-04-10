@@ -1,3 +1,3 @@
-import * as todosActions from './todos';
+import allTodoActions from './todos';
 
-export const todosActions = todosActions;
+export const todosActions = allTodoActions;

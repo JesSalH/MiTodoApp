@@ -1,12 +1,5 @@
 import React from "react"
 
-
-
-// importamos actions
-// import { AddTodo } from '../../actions/addTodo';
-// import { ModifyTodo } from '../../actions/modifyTodo.js';
-// import { DeleteTodo } from '../../actions/deleteTodo.js';
-
 export class TodoItem extends React.Component  {
 
     constructor() 
@@ -19,12 +12,8 @@ export class TodoItem extends React.Component  {
             text:'',
             completed:false,
         }
-        // bindeamos con la func que va a modificar el state
-        
     }
 
-    componentDidMount(){
-    }
 
     render()
     {
@@ -48,23 +37,25 @@ export class TodoItem extends React.Component  {
                     type="button">Delete
                 </button>
                    
-                {/* ----------------- parte modal edit ----------- */}
+                {/* ----------------- parte modal edit ------------ */}
                 
                     <div className="edit-todo">
         
-                        {/* <!-- Trigger/Open The Modal --> */}
+                        {/*  Trigger/Open The Modal  */}
                         <button id="myBtn"
                             onClick = {()=>this.setState({modalVisible: true})}
                         >Edit Item</button>
 
-                        {/* <!-- The Modal --> */}
+                        {/*  The Modal  */}
                         {this.state.modalVisible ? <div id="myModal" className="modal">
 
-                        {/* <!-- Modal content --> */}
+                        {/*  Modal content */}
                         <div className="modal-content">
-                            <span className="close"
-                            onClick = {()=>this.setState({modalVisible: false})}
-                            >&times;</span>
+                            <span 
+                                className="close"
+                                onClick = {()=>this.setState({modalVisible: false})}
+                                >&times;
+                            </span>
 
                             <p>Edit Todo</p>
 
@@ -83,9 +74,8 @@ export class TodoItem extends React.Component  {
                             </input>
 
                             <button 
-                                id="myBtnAddTodo"
+                                id="myBtnEditTodo"
                                 onClick = {()=> {
-
                                     this.props.editTodo(this.props.item.id,this.state.text,this.state.completed);                                    
                                     this.setState({modalVisible: false});
                                 }}
@@ -107,5 +97,3 @@ export class TodoItem extends React.Component  {
     }
 }
 
-
-//export default TodoItem;

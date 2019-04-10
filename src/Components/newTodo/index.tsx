@@ -1,11 +1,5 @@
 import React from "react"
 
-//1.- connect de redux..
-import { connect } from 'react-redux';
-
-//la action que vamos a necesitar
-import {addTodo} from '../../actions/addTodo'
-import {todosActions} from '../../actions'
 
 interface IProps {
     addTodo: (text:string,checked:boolean) => void;
@@ -25,33 +19,20 @@ class NewTodo extends React.Component<IProps,IState>  {
         completed:false,
     }
     
-    componentDidMount(){    
-    }
-
-   
-    private generateTodo(text: string, checked: boolean) {
-        console.log("Reached generateTodo func with text: " + text + " and checkded: " + checked);
-        this.setState({ modalVisible: false })
-
-        console.log("props en generateTodo func: " + this.props)
-
-        this.props.addTodo(text, checked);
-    }
-
-    // 4.- ya tiene unas props con: todos (store) y addTodo (action)  
+    
    public render(){
         return (            
             <div className="new-todo">
     
-            {/* <!-- Trigger/Open The Modal --> */}
+            {/*  Trigger/Open The Modal */}
              <button id="myBtn"
                  onClick = {()=>this.setState({modalVisible: true})}
              >Add Item</button>
 
-             {/* <!-- The Modal --> */}
+             {/*  The Modal */}
              {this.state.modalVisible ? <div id="myModal" className="modal">
 
-                 {/* <!-- Modal content --> */}
+                 {/*  Modal content */}
                  <div className="modal-content">
                      <span className="close"
                      onClick = {()=>this.setState({modalVisible: false})}
@@ -74,48 +55,21 @@ class NewTodo extends React.Component<IProps,IState>  {
                     </input>
 
                      <button 
-                        id="myBtnAddTodo"
-                        onClick = {()=>this.generateTodo(this.state.text,this.state.completed)}
+                        id="myBtnAddTodo"                        
+                        onClick = {()=> {
+                            this.props.addTodo(this.state.text,this.state.completed);                                    
+                            this.setState({modalVisible: false});
+                        }}
                             >Add Todo
                     </button>
 
                  </div>
 
              </div>: null }
-
-
      </div>
 
         );
     }
 }
 
-
-//export default NewTodo;
-
-
-//2.- el map que pasa a estado el data de la app
-// no hace falta state porque en este componente no se vuelcan datos
-const mapStateToProps = (state:any) => { 
-    console.log("Este es el state:") 
-    console.log(state);
-    return {todos: state.todos};  
-  };
-  
-  
-  
-//2X.- por si queremos separar las actions en lugar de meterlas directamente en el connect...
-const mapDispatchToProps = (dispatch:any) => {
-    return {
-        addTodo: (itm:any) => {
-            dispatch(addTodo(itm))
-        }
-        ,
-        todosActions: (itm:any) => {
-            dispatch(addTodo(itm))
-        }
-    };
-};
-
-//3.- Connect componente store y action
-export default connect(mapStateToProps,mapDispatchToProps)(NewTodo);
+export default NewTodo
