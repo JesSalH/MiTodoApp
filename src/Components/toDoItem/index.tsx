@@ -1,10 +1,29 @@
 import React from "react"
 import ITodo from '../../interfaces';
 
-export class TodoItem extends React.Component  {
+
+interface IProps {
+    addTodo: (text:string,checked:boolean) => void;
+    item: ITodo;
+    alCambiar: (todo:ITodo) => void;
+    alBorrar: (todo:ITodo) => void;
+    editTodo: (id:number,text:string,completed:boolean) => void;
+   
+
+}
+
+interface IState{
+    editModalVisible: boolean,
+    modalVisible: boolean,
+    text:string,
+    completed:boolean,
+}
+
+class TodoItem extends React.Component<IProps,IState>  {
 
     public state = {
         editModalVisible: false,
+        modalVisible: false,
         text:'',
         completed:false,
     }
@@ -91,3 +110,4 @@ export class TodoItem extends React.Component  {
     }
 }
 
+export default TodoItem

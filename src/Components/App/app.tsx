@@ -4,39 +4,44 @@ import './app.css';
 //1.- connect de redux..
 import { connect } from 'react-redux';
 
-
 //importamos todas las actions
 import { todosActions } from '../../actions';
 
 
-// asi importamos un class based component
-import {TodoItem} from "../toDoItem"
+//class based components
+import TodoItem from "../toDoItem"
 import NewTodo from "../newTodo"
 
+import ITodo from '../../interfaces';
+import { NumericDictionary } from "lodash";
+
+
+//interface con todos los elementos que podra tener el componente
+interface IProps {
+  //array todos todo con formato array de ITodos
+  todos: ITodo[];
+  //funcion -> reciben un objeto todo (formato Itodo) y devuelven void
+  addTodo: (todo: ITodo) => void;
+  removeTodo: (todo: ITodo) => void;
+  editTodo: (todo: ITodo) => void;
+  deleteTodo: (todo: ITodo) => void;
+  modifyTodo: (id:number,text:string,completed:boolean) => void;
+  addNewTodo: (text:string,completed:boolean) => void;
+  stTodo: (todo: ITodo) => void;
+
+}
 
 //Componente con props del store
-class App extends React.Component {
-
-  constructor() 
-  {
-      super()
-
-      //este componente no tiene state, solo coge datos del store (en props) y los pasa al componente toDo Item 
-      this.state = {
-         
-      }
-      // bindeamos con la func que va a modificar el state
-      this.handleChange = this.handleChange.bind(this)
-  }
+class App extends React.Component<IProps, any> {
 
 
-  handleChange(todo){
+handleChange(todo:ITodo){
 
     this.props.stTodo(todo);
 }
 
 
-clickDelete(toDo){
+clickDelete(toDo:ITodo){
 
   console.log("pulsado delete "+toDo.id)
   // llamamos a la action deleteTodo desde las props
@@ -44,13 +49,13 @@ clickDelete(toDo){
 }
 
 
-editTodo(id,text,completed){
+editTodo(id:number,text:string,completed:boolean){
   //llamamos action desde props
   this.props.modifyTodo(id, text, completed);
 
 }
 
-addTodo(text, completed){
+addTodo(text:string, completed:boolean){
 
   this.props.addNewTodo(text,completed)
 
@@ -90,7 +95,7 @@ addTodo(text, completed){
 
 
 //2.- pasamos a props los todos del store
-const mapStateToProps = state => { 
+const mapStateToProps = (state:any) => { 
 
   console.log("Este es el state:") 
   console.log(state);
@@ -102,24 +107,23 @@ const mapStateToProps = state => {
 
 
 //2X.- por si queremos separar las actions en lugar de meterlas directamente en el connect...
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch:any) => {
   return {
     
-    deleteTodo: (itm) =>{
+    deleteTodo: (itm:ITodo) =>{
       dispatch(todosActions.deleteTodo(itm))
     },
-    modifyTodo: (id,text,completed) =>{
+    modifyTodo: (id:number,text:string,completed:boolean) =>{
       dispatch(todosActions.modifyTodo(id,text,completed))
     },
-    addNewTodo: (text,checked) =>{
+    addNewTodo: (text:string,checked:boolean) =>{
       dispatch(todosActions.addTodo(text,checked))
     },
-    stTodo: (todo) =>{
+    stTodo: (todo:ITodo) =>{
       dispatch(todosActions.strikeThroughTodo(todo))
     }
   };
 }
-
 
 
 // 3.- connect de store, actions y componente
