@@ -17,11 +17,21 @@ const reducer = (oldTodosArray = toDosData, action) => {
             // 2 anadimos el todo que nos viene de la action
             return [...listWithoutModifiedTodo, action.payload]
 
+        case 'STRIKETHROUGH_TODO':
+            const updatedTodos = oldTodosArray.map(todo => {
+                // si es el que hemos clicado cambiamos completed
+                if (todo.id === action.payload.id) {
+                    todo.completed = !todo.completed
+                }
+                // devolvemos todos los elementos
+                return todo
+            })
+            return updatedTodos
+
         default:
             return oldTodosArray;
 
     }
 }
-
 
 export default reducer;
