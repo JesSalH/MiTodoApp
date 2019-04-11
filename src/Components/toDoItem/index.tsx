@@ -3,11 +3,11 @@ import ITodo from '../../interfaces';
 
 
 interface IProps {
-    addTodo: (text:string,checked:boolean) => void;
-    item: ITodo;
-    alCambiar: (todo:ITodo) => void;
-    alBorrar: (todo:ITodo) => void;
-    editTodo: (id:number,text:string,completed:boolean) => void;
+    addTodo?: (text:string,checked:boolean) => void;
+    item?: ITodo;
+    alCambiar?: (todo:ITodo) => void;
+    alBorrar?: (todo:ITodo) => void;
+    editTodo?: (id:number,text:string,completed:boolean) => void;
    
 
 }
@@ -42,12 +42,12 @@ class TodoItem extends React.Component<IProps,IState>  {
     
                 <input 
                     type="checkbox" 
-                    checked={this.props.item.completed}
-                    onChange={() => this.props.alCambiar(this.props.item)}       
+                    checked={this.props.item!.completed}
+                    onChange={() => this.props.alCambiar!(this.props.item!)}       
                 />  
-                <p style={this.props.item.completed ? completedStyle: null}>La tarea es: {this.props.item.text}</p>
+                <p style={this.props.item!.completed ? completedStyle: {}}>La tarea es: {this.props.item!.text}</p>
                 <button 
-                    onClick={() => this.props.alBorrar(this.props.item)}   
+                    onClick={() => this.props.alBorrar!(this.props.item!)}   
                     type="button">Delete
                 </button>
                    
@@ -90,7 +90,7 @@ class TodoItem extends React.Component<IProps,IState>  {
                             <button 
                                 id="myBtnEditTodo"
                                 onClick = {()=> {
-                                    this.props.editTodo(this.props.item.id,this.state.text,this.state.completed);                                    
+                                    this.props.editTodo!(this.props.item!.id,this.state.text,this.state.completed);                                    
                                     this.setState({modalVisible: false});
                                 }}
                                     >Apply Changes

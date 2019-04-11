@@ -19,15 +19,15 @@ import { NumericDictionary } from "lodash";
 //interface con todos los elementos que podra tener el componente
 interface IProps {
   //array todos todo con formato array de ITodos
-  todos: ITodo[];
+  todos?: ITodo[];
   //funcion -> reciben un objeto todo (formato Itodo) y devuelven void
-  addTodo: (todo: ITodo) => void;
-  removeTodo: (todo: ITodo) => void;
-  editTodo: (todo: ITodo) => void;
-  deleteTodo: (todo: ITodo) => void;
-  modifyTodo: (id:number,text:string,completed:boolean) => void;
-  addNewTodo: (text:string,completed:boolean) => void;
-  stTodo: (todo: ITodo) => void;
+  addTodo?: (todo: ITodo) => void;
+  removeTodo?: (todo: ITodo) => void;
+  editTodo?: (todo: ITodo) => void;
+  deleteTodo?: (todo: ITodo) => void;
+  modifyTodo?: (id:number,text:string,completed:boolean) => void;
+  addNewTodo?: (text:string,completed:boolean) => void;
+  stTodo?: (todo: ITodo) => void;
 
 }
 
@@ -37,7 +37,7 @@ class App extends React.Component<IProps, any> {
 
 handleChange(todo:ITodo){
 
-    this.props.stTodo(todo);
+    this.props.stTodo!(todo);
 }
 
 
@@ -45,26 +45,26 @@ clickDelete(toDo:ITodo){
 
   console.log("pulsado delete "+toDo.id)
   // llamamos a la action deleteTodo desde las props
-  this.props.deleteTodo(toDo)
+  this.props.deleteTodo!(toDo)
 }
 
 
 editTodo(id:number,text:string,completed:boolean){
   //llamamos action desde props
-  this.props.modifyTodo(id, text, completed);
+  this.props.modifyTodo!(id, text, completed);
 
 }
 
 addTodo(text:string, completed:boolean){
 
-  this.props.addNewTodo(text,completed)
+  this.props.addNewTodo!(text,completed)
 
 }
   
 
   render() {
     // 4.- ya tiene en las props el toDos del store (enlazado desde el connect)
-    const todoItems = this.props.todos.map(item => 
+    const todoItems = this.props.todos!.map(item => 
     
     <div key={item.id} >
 

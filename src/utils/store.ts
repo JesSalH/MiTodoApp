@@ -4,8 +4,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 // nuestros reducers
 import createRootReducer from '../reducers';
-const composeEnhancers = (window).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // el history...
 export const history = createBrowserHistory();
 
